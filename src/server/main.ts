@@ -8,7 +8,6 @@ import {
   NestExpressApplication,
 } from '@nestjs/platform-express';
 import { ServerModule } from 'src/server/server.module';
-import { clientDevServer } from './clientDevServer';
 import express from 'express';
 
 async function bootstrap() {
@@ -21,13 +20,11 @@ async function bootstrap() {
   nestApp.setGlobalPrefix('api');
   nestApp.use(cookieParser());
   nestApp.set('trust proxy', true);
-  nestApp.enableCors({
-    origin: ['http://localhost:3000'],
-    credentials: true,
-  });
   const port = process.env.PORT || 8080;
   if (process.env.NODE_ENV !== 'production') {
-    clientDevServer(app, port);
+    import('./clientDevServer').then(({ default: devServer }) =>
+      devServer(app, port),
+    );
   }
   await nestApp.listen(port);
 }

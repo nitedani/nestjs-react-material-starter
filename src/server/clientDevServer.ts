@@ -6,7 +6,7 @@ import * as webpackDevMiddleware from 'webpack-dev-middleware';
 import * as webpackHotMiddleware from 'webpack-hot-middleware';
 import { WebpackOpenBrowser } from 'webpack-open-browser';
 
-export function clientDevServer(
+export default function clientDevServer(
   app: express.Application,
   port: string | number,
 ) {
