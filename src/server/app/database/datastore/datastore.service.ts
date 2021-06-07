@@ -1,9 +1,9 @@
 import { Datastore } from '@google-cloud/datastore';
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { cwd } from 'process';
+import { ConfigService } from '../../config/config.service';
 
 @Injectable()
 export class DataStoreService extends Datastore {

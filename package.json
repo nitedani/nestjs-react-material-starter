@@ -8,9 +8,9 @@
   "main": "dist/main.js",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "cross-env NODE_ENV=production nest build && cross-env NODE_ENV=production webpack -c webpack.client.config.js",
+    "build": "npm run format && cross-env NODE_ENV=production nest build && cross-env NODE_ENV=production webpack -c webpack.client.config.js",
     "deploy": "npm run build && gcloud app deploy --no-cache",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.tsx\" \"test/**/*.ts\"",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start": "cross-env NODE_ENV=production node dist/main",
@@ -24,7 +24,6 @@
   "dependencies": {
     "@google-cloud/datastore": "^6.4.0",
     "@nestjs/common": "^8.0.0-alpha.5",
-    "@nestjs/config": "^0.6.3",
     "@nestjs/core": "^8.0.0-alpha.5",
     "@nestjs/jwt": "^7.2.0",
     "@nestjs/passport": "^7.1.5",
@@ -36,6 +35,7 @@
     "axios": "^0.21.1",
     "cookie-parser": "^1.4.5",
     "cuid": "^2.1.8",
+    "dotenv": "^10.0.0",
     "handlebars": "^4.7.7",
     "lodash": "^4.17.21",
     "nodemailer": "^6.6.1",
@@ -113,7 +113,8 @@
     "webpack-cli": "^4.7.0",
     "webpack-dev-middleware": "^5.0.0",
     "webpack-hot-middleware": "^2.25.0",
-    "webpack-messages": "^2.0.4"
+    "webpack-messages": "^2.0.4",
+    "webpack-open-browser": "^1.0.5"
   },
   "jest": {
     "moduleFileExtensions": [

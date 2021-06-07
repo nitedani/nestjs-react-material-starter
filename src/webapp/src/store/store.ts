@@ -1,6 +1,6 @@
-import { createStore, action, Action, createTypedHooks } from "easy-peasy";
+import { createStore, action, Action, createTypedHooks } from 'easy-peasy';
 
-export type ThemeId = "light" | "dark";
+export type ThemeId = 'light' | 'dark';
 export interface CounterModel {
   count: number;
   increment: Action<any>;
@@ -19,7 +19,7 @@ export interface LayoutModel {
 }
 
 const theme: ThemeModel = {
-  themeId: "light",
+  themeId: 'light',
   setTheme: action((state, payload) => {
     state.themeId = payload;
   }),

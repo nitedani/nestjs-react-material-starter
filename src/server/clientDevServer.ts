@@ -4,8 +4,12 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import * as defaultConfig from '../../webpack.client.config';
 import * as webpackDevMiddleware from 'webpack-dev-middleware';
 import * as webpackHotMiddleware from 'webpack-hot-middleware';
+import { WebpackOpenBrowser } from 'webpack-open-browser';
 
-export function clientDevServer(app: express.Application) {
+export function clientDevServer(
+  app: express.Application,
+  port: string | number,
+) {
   const webpackCompiler = webpack({
     ...defaultConfig,
     mode: 'development',
@@ -22,6 +26,7 @@ export function clientDevServer(app: express.Application) {
       ...defaultConfig.plugins,
       new BundleAnalyzerPlugin(),
       new HotModuleReplacementPlugin(),
+      new WebpackOpenBrowser({ url: `http://localhost:${port}` }),
     ],
   });
 

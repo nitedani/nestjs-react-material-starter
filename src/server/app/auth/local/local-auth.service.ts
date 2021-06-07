@@ -10,8 +10,8 @@ import registerTemplateHtml from './register.template.html';
 import * as argon2 from 'argon2';
 import nodemailer from 'nodemailer';
 import handlebars from 'handlebars';
-import { ConfigService } from '@nestjs/config';
 import { User } from '../../../common/types/user';
+import { ConfigService } from '../../config/config.service';
 const argon2Opts = {
   type: argon2.argon2id,
   timeCost: 8,

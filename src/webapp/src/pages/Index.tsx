@@ -4,18 +4,18 @@ import {
   Typography,
   Button,
   LinearProgress,
-} from "@material-ui/core";
-import { Formik, Form, Field } from "formik";
-import { TextField } from "formik-material-ui";
-import { useSocketEvent } from "socket.io-react-hook";
-import { useQuery } from "react-query";
-import { useAuthenticatedSocket } from "../hooks/useAuthenticatedSocket";
-import { getHello } from "../api/api";
+} from '@material-ui/core';
+import { Formik, Form, Field } from 'formik';
+import { TextField } from 'formik-material-ui';
+import { useSocketEvent } from 'socket.io-react-hook';
+import { useQuery } from 'react-query';
+import { useAuthenticatedSocket } from '../hooks/useAuthenticatedSocket';
+import { getHello } from '../api/api';
 
 const Index = () => {
   const { socket, connected, error } = useAuthenticatedSocket();
-  const { lastMessage } = useSocketEvent<string>(socket, "randomNumber");
-  const { data: hello } = useQuery("hello", getHello);
+  const { lastMessage } = useSocketEvent<string>(socket, 'randomNumber');
+  const { data: hello } = useQuery('hello', getHello);
 
   return (
     <Container maxWidth="sm">
@@ -29,10 +29,10 @@ const Index = () => {
             <div>Number from socket.io: {lastMessage}</div>
             <Formik
               initialValues={{
-                message: "",
+                message: '',
               }}
               onSubmit={({ message }, { setSubmitting }) => {
-                socket.emit("message", message);
+                socket.emit('message', message);
                 setSubmitting(false);
               }}
             >

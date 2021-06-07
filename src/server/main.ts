@@ -1,3 +1,6 @@
+import * as dotenv from 'dotenv';
+const ENV = process.env.NODE_ENV;
+dotenv.config({ path: !ENV ? '.env' : `.env.${ENV}` });
 import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
 import {
@@ -5,7 +8,7 @@ import {
   NestExpressApplication,
 } from '@nestjs/platform-express';
 import { ServerModule } from 'src/server/server.module';
-import { clientDevServer } from './initWebpack';
+import { clientDevServer } from './clientDevServer';
 import express from 'express';
 
 async function bootstrap() {
@@ -22,9 +25,10 @@ async function bootstrap() {
     origin: ['http://localhost:3000'],
     credentials: true,
   });
+  const port = process.env.PORT || 8080;
   if (process.env.NODE_ENV !== 'production') {
-    clientDevServer(app);
+    clientDevServer(app, port);
   }
-  await nestApp.listen(process.env.PORT || 8080);
+  await nestApp.listen(port);
 }
 bootstrap();

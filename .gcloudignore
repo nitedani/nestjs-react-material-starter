@@ -16,6 +16,3 @@ sa-private-key.json
 
 # Node.js dependencies:
 node_modules/
-
-# Build
-.next

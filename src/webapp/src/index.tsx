@@ -1,15 +1,15 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import { CssBaseline, ThemeProvider } from "@material-ui/core";
-import { IoProvider } from "socket.io-react-hook";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { StoreProvider } from "easy-peasy";
-import { useTheme } from "./hooks/useTheme";
-import store from "./store/store";
-import { BrowserRouter } from "react-router-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import { IoProvider } from 'socket.io-react-hook';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { StoreProvider } from 'easy-peasy';
+import { useTheme } from './hooks/useTheme';
+import store from './store/store';
+import { BrowserRouter } from 'react-router-dom';
 const queryClient = new QueryClient();
 
 const MyThemeProvider: React.FC = ({ children }) => {
@@ -40,7 +40,7 @@ ReactDOM.render(
       <App />
     </Providers>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 
 if (module.hot) {

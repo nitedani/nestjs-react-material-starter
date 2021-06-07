@@ -8,7 +8,7 @@ import { LocalAuthModule } from './local/local-auth.module';
   imports: [
     UsersModule,
     PassportModule,
-    GoogleOauthModule,
+    ...(process.env.GOOGLE_AUTH_ENABLED ? [GoogleOauthModule] : []),
     ...(process.env.LOCAL_AUTH_ENABLED ? [LocalAuthModule] : []),
     JwtAuthModule,
   ],
