@@ -11,7 +11,6 @@
 # from your .gitignore file, remove the corresponding line
 # below:
 .git
-src/
 sa-private-key.json
 
 # Node.js dependencies:
