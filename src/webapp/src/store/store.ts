@@ -1,4 +1,10 @@
-import { createStore, action, Action, createTypedHooks } from 'easy-peasy';
+import {
+  createStore,
+  action,
+  Action,
+  createTypedHooks,
+  persist,
+} from 'easy-peasy';
 
 export type ThemeId = 'light' | 'dark';
 export interface CounterModel {
@@ -51,11 +57,16 @@ export interface StoreModel {
   layout: LayoutModel;
 }
 
-export const store = createStore<StoreModel>({
-  counter,
-  theme,
-  layout,
-});
+export const store = createStore<StoreModel>(
+  persist(
+    {
+      counter,
+      theme,
+      layout,
+    },
+    { allow: ['theme'] },
+  ),
+);
 export default store;
 
 const typedHooks = createTypedHooks<StoreModel>();
