@@ -33,7 +33,7 @@
     "@nestjs/serve-static": "2.2.2",
     "@nestjs/websockets": "8.2.0",
     "argon2": "0.28.2",
-    "axios": "0.21.4",
+    "axios": "0.24.0",
     "cookie-parser": "1.4.5",
     "cuid": "2.1.8",
     "dotenv": "10.0.0",
