@@ -46,7 +46,7 @@
     "passport-local": "1.0.0",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
-    "rxjs": "6.6.7"
+    "rxjs": "7.4.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "7.16.0",
