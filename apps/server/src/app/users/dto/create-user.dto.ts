@@ -1,4 +1,4 @@
-import { Provider } from 'src/common/types/user';
+import { Provider } from '@prisma/client';
 
 export class CreateUserDto {
   provider: Provider;

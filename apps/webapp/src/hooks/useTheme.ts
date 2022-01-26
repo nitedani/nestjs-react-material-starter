@@ -1,4 +1,4 @@
-import { Theme } from '@material-ui/core';
+import { Theme } from '@mui/material';
 import { useStoreState } from '../store/store';
 import { darkTheme, lightTheme } from '../themes';
 

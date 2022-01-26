@@ -1,4 +1,9 @@
-import { Switch, Route, Redirect, RouteProps } from 'react-router-dom';
+import {
+  Routes as Switch,
+  Route,
+  Navigate,
+  RouteProps,
+} from 'react-router-dom';
 import { useCookie } from 'react-use';
 import Index from '../pages/Index';
 import Login from '../pages/Login';
@@ -11,22 +16,16 @@ export const ProtectedRoute = (props: RouteProps): JSX.Element => {
   return accessToken ? (
     <Route {...rest}>{children}</Route>
   ) : (
-    <Redirect to={LOGIN}></Redirect>
+    <Navigate to={LOGIN} />
   );
 };
 
 export const Routes = (): JSX.Element => {
   return (
     <Switch>
-      <Route exact path={INDEX}>
-        <Index />
-      </Route>
-      <ProtectedRoute exact path={PROFILE}>
-        <Profile />
-      </ProtectedRoute>
-      <Route exact path={LOGIN}>
-        <Login />
-      </Route>
+      <ProtectedRoute path={PROFILE} element={<Profile />} />
+      <Route path={INDEX} element={<Index />} />
+      <Route path={LOGIN} element={<Login />} />
     </Switch>
   );
 };

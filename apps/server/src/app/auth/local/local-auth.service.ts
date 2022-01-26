@@ -10,8 +10,8 @@ import registerTemplateHtml from './register.template.html';
 import * as argon2 from 'argon2';
 import nodemailer from 'nodemailer';
 import handlebars from 'handlebars';
-import { User } from '../../../common/types/user';
 import { ConfigService } from '../../config/config.service';
+import { Provider, User } from '@prisma/client';
 const argon2Opts = {
   type: argon2.argon2id,
   timeCost: 8,
@@ -28,7 +28,10 @@ export class LocalAuthService {
 
   async validateUser(email: string, pass: string): Promise<any> {
     console.log(email);
-    const user = await this.usersService.findOneByProvider('local', email);
+    const user = await this.usersService.findOneByProvider(
+      Provider.LOCAL,
+      email,
+    );
 
     // Wrong email
     if (!user)
@@ -57,7 +60,10 @@ export class LocalAuthService {
     email: string;
     password: string;
   }): Promise<string> {
-    const foundUser = await this.usersService.findOneByProvider('local', email);
+    const foundUser = await this.usersService.findOneByProvider(
+      Provider.LOCAL,
+      email,
+    );
     if (foundUser)
       throw new BadRequestException(
         'The email address you have entered is already associated with another account.',
@@ -67,7 +73,7 @@ export class LocalAuthService {
 
     try {
       const newUser = await this.usersService.create({
-        provider: 'local',
+        provider: Provider.LOCAL,
         providerId: email,
         username: email,
         password: hashed,

@@ -4,9 +4,9 @@ import {
   Typography,
   Button,
   LinearProgress,
-} from '@material-ui/core';
+} from '@mui/material';
 import { Formik, Form, Field } from 'formik';
-import { TextField } from 'formik-material-ui';
+import { TextField } from 'formik-mui';
 import { useSocketEvent } from 'socket.io-react-hook';
 import { useQuery } from 'react-query';
 import { useAuthenticatedSocket } from '../hooks/useAuthenticatedSocket';

@@ -1,15 +1,13 @@
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
-import { TextField } from 'formik-material-ui';
+import { TextField } from 'formik-mui';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
-import { Link, useHistory } from 'react-router-dom';
 import { loginLocal } from '../api/api';
 
 const Login = () => {
-  const [loginError, setLoginError] = useState<Error>();
+  const [loginError, setLoginError] = useState<any>();
   const { mutateAsync } = useMutation('loginLocal', loginLocal);
-  const history = useHistory();
 
   return (
     <div className="flex flex-col gap-2 justify-center items-center w-full h-full">
@@ -21,7 +19,7 @@ const Login = () => {
         onSubmit={async ({ email, password }, { setSubmitting }) => {
           try {
             await mutateAsync({ email, password });
-          } catch (error) {
+          } catch (error: any) {
             setLoginError(error);
           }
 

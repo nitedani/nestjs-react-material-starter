@@ -3,6 +3,7 @@ import { Profile, Strategy } from 'passport-google-oauth20';
 import { Injectable } from '@nestjs/common';
 import { UsersService } from '../../users/users.service';
 import { ConfigService } from '../../config/config.service';
+import { Provider } from '@prisma/client';
 
 @Injectable()
 export class GoogleOauthStrategy extends PassportStrategy(Strategy, 'google') {
@@ -25,10 +26,10 @@ export class GoogleOauthStrategy extends PassportStrategy(Strategy, 'google') {
   ) {
     const { id, name, emails } = profile;
 
-    let user = await this.usersService.findOneByProvider('google', id);
+    let user = await this.usersService.findOneByProvider(Provider.GOOGLE, id);
     if (!user) {
       user = await this.usersService.create({
-        provider: 'google',
+        provider: Provider.GOOGLE,
         providerId: id,
         name: name.givenName,
         username: emails[0].value,

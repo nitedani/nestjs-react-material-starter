@@ -1,18 +1,18 @@
-import MaterialAppBar from '@material-ui/core/AppBar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import MaterialAppBar from '@mui/material/AppBar';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
 
-import { Button, Switch } from '@material-ui/core';
+import { Button, Switch } from '@mui/material';
 import { useStoreActions } from '../store/store';
 import { drawerWidth } from '../themes';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { LOGIN } from '../router/routes';
 import { useTheme } from '../hooks/useTheme';
 
 const AppBar: React.FC = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const setTheme = useStoreActions((actions) => actions.theme.setTheme);
   const toggleDrawer = useStoreActions(
     (actions) => actions.layout.toggleDrawer,
@@ -57,11 +57,11 @@ const AppBar: React.FC = () => {
           </Typography>
           <Switch onChange={handleThemeToggle} checked={themeEnum === 'dark'} />
 
-          <Button color="primary" onClick={() => history.push(LOGIN)}>
+          <Button color="primary" onClick={() => navigate(LOGIN)}>
             Sign up
           </Button>
 
-          <Button color="primary" onClick={() => history.push(LOGIN)}>
+          <Button color="primary" onClick={() => navigate(LOGIN)}>
             Sign in
           </Button>
         </Toolbar>

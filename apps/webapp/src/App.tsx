@@ -1,11 +1,10 @@
 import React from 'react';
 import './logo.svg';
 import './App.css';
-import { Box } from '@material-ui/core';
+import { Box } from '@mui/material';
 import { Routes } from './router/Router';
 import AppBar from './components/AppBar';
 import Drawer from './components/Drawer';
-import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (

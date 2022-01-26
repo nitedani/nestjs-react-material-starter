@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { IoProvider } from 'socket.io-react-hook';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { StoreProvider } from 'easy-peasy';

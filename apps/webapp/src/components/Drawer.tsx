@@ -6,15 +6,15 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-} from '@material-ui/core';
-import { Home } from '@material-ui/icons';
-import { useHistory } from 'react-router-dom';
+} from '@mui/material';
+import { Home } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 import { INDEX } from '../router/routes';
 import { useStoreActions, useStoreState } from '../store/store';
 import { drawerWidth } from '../themes';
 
 const Drawer = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const drawerOpen = useStoreState((state) => state.layout.drawerOpened);
   const toggleDrawer = useStoreActions(
     (actions) => actions.layout.toggleDrawer,
@@ -24,7 +24,7 @@ const Drawer = () => {
     <div>
       <Toolbar />
       <List>
-        <ListItem button onClick={() => history.push(INDEX)}>
+        <ListItem button onClick={() => navigate(INDEX)}>
           <ListItemIcon>
             <Home />
           </ListItemIcon>
