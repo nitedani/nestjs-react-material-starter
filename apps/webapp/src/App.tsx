@@ -1,4 +1,3 @@
-import React from 'react';
 import './logo.svg';
 import './App.css';
 import { Box } from '@mui/material';
@@ -6,7 +5,7 @@ import { Routes } from './router/Router';
 import AppBar from './components/AppBar';
 import Drawer from './components/Drawer';
 
-function App() {
+function DrawerApp() {
   return (
     <div className="App">
       <Box sx={{ display: 'flex' }}>
@@ -22,4 +21,4 @@ function App() {
   );
 }
 
-export default App;
+export default DrawerApp;

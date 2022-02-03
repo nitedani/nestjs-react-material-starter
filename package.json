@@ -7,20 +7,30 @@
   "license": "UNLICENSED",
   "main": "dist/app/server/main.js",
   "scripts": {
+    "prisma-generate": "npx prisma generate",
+    "prisma-migrate": "npx prisma migrate dev",
     "prebuild": "rimraf dist",
-    "build": "npm run format && cross-env NODE_ENV=production nest build && cross-env NODE_ENV=production webpack -c apps/webapp/webpack.config.js",
+    "postinstall": "npx husky install && npx husky-init",
+    "build": "npm run pre-commit && cross-env NODE_ENV=production nest build && cross-env NODE_ENV=production webpack -c apps/webapp/webpack.config.js",
     "deploy": "npm run build && gcloud app deploy --no-cache",
     "format": "prettier --write \"apps/**/*.ts\" \"apps/**/*.tsx\"",
     "start:dev": "nest start --watch",
     "start:prod": "cross-env NODE_ENV=production node dist/main",
     "start:debug": "nest start --debug --watch",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.{ts,tsx}\" --fix",
+    "test": "npm run format && npm run lint",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "start": "node dist/main"
+    "start": "node dist/main",
+    "pre-commit": "npm run format && npm run lint",
+    "prepare": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run pre-commit"
+    }
   },
   "dependencies": {
     "@google-cloud/datastore": "^6.6.2",
@@ -38,7 +48,9 @@
     "cookie-parser": "^1.4.6",
     "cuid": "^2.1.8",
     "dotenv": "^14.3.2",
+    "eslint-plugin-sonarjs": "^0.11.0",
     "handlebars": "^4.7.7",
+    "husky": "^7.0.4",
     "lodash": "^4.17.21",
     "nodemailer": "^6.7.2",
     "passport": "^0.5.2",
@@ -86,6 +98,7 @@
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.28.0",
     "formik": "^2.2.9",
     "formik-mui": "^4.0.0-alpha.3",
     "formik-mui-lab": "^1.0.0-alpha.3",
@@ -119,7 +132,7 @@
     "webpack-dev-middleware": "^5.3.0",
     "webpack-hot-middleware": "^2.25.1",
     "webpack-messages": "^2.0.4",
-    "webpack-open-browser": "^1.0.5"
+    "husky": "^7.0.0"
   },
   "jest": {
     "moduleFileExtensions": [

@@ -1,11 +1,14 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: 'tsconfig.json',
+    project: ['./apps/server/tsconfig.json', './apps/webapp/tsconfig.json'],
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint/eslint-plugin'],
+  plugins: ['@typescript-eslint/eslint-plugin', 'sonarjs'],
   extends: [
+    'plugin:react/recommended',
+    'plugin:react/jsx-runtime',
+    'plugin:sonarjs/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],

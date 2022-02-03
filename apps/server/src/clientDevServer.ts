@@ -4,7 +4,6 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import * as defaultConfig from '../../webapp/webpack.config.js';
 import * as webpackDevMiddleware from 'webpack-dev-middleware';
 import * as webpackHotMiddleware from 'webpack-hot-middleware';
-import { WebpackOpenBrowser } from 'webpack-open-browser';
 
 export default function clientDevServer(
   app: express.Application,
@@ -24,9 +23,9 @@ export default function clientDevServer(
     },
     plugins: [
       ...defaultConfig.plugins,
-      new BundleAnalyzerPlugin(),
+      //new BundleAnalyzerPlugin(),
+      //new WebpackOpenBrowser({ url: `http://localhost:${port}` }),
       new HotModuleReplacementPlugin(),
-      new WebpackOpenBrowser({ url: `http://localhost:${port}` }),
     ],
   });
 

@@ -1,5 +1,5 @@
-import { blue } from '@material-ui/core/colors';
-import { createTheme } from '@material-ui/core/styles';
+import { blue } from '@mui/material/colors';
+import { createTheme } from '@mui/material/styles';
 export const drawerWidth = 240;
 export const lightTheme = createTheme({
   palette: {

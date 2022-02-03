@@ -1,7 +1,6 @@
 import * as dotenv from 'dotenv';
-import { join } from 'path';
 const ENV = process.env.NODE_ENV;
-dotenv.config({ path: join('apps', 'server', !ENV ? '.env' : `.env.${ENV}`) });
+dotenv.config({ path: !ENV ? '.env' : `.env.${ENV}` });
 import { NestFactory } from '@nestjs/core';
 import * as cookieParser from 'cookie-parser';
 import {
@@ -27,6 +26,6 @@ async function bootstrap() {
       devServer(app, port),
     );
   }
-  await nestApp.listen(port);
+  await nestApp.listen(4000);
 }
 bootstrap();

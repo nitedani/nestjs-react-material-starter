@@ -53,7 +53,34 @@ export class LocalAuthService {
     throw new UnauthorizedException('Invalid email or password');
   }
 
-  async register({
+  async registerUnverified({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }): Promise<User> {
+    const foundUser = await this.usersService.findOneByProvider(
+      Provider.LOCAL,
+      email,
+    );
+    if (foundUser)
+      throw new BadRequestException(
+        'The email address you have entered is already associated with another account.',
+      );
+
+    const hashed = await argon2.hash(password, argon2Opts);
+
+    return this.usersService.create({
+      provider: Provider.LOCAL,
+      providerId: email,
+      username: email,
+      password: hashed,
+      isVerified: true,
+    });
+  }
+
+  async registerVerified({
     email,
     password,
   }: {
@@ -78,6 +105,7 @@ export class LocalAuthService {
         username: email,
         password: hashed,
       });
+
       return await this.sendConfirmationEmail(newUser);
     } catch (error) {
       throw new InternalServerErrorException(error);

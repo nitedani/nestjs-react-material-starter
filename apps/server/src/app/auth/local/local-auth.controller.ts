@@ -28,8 +28,20 @@ export class LocalAuthController {
   }
 
   @Post('register')
-  async register(@Body() newUser: { email: string; password: string }) {
-    return this.localAuthService.register(newUser);
+  async register(
+    @Body() newUser: { email: string; password: string },
+    @Res() res: Response,
+  ) {
+    const verify = process.env.LOCAL_SIGNUP_VERIFY === 'true';
+    if (verify) {
+      const message = await this.localAuthService.registerVerified(newUser);
+      res.status(201).json({ message });
+      return;
+    }
+    const user = await this.localAuthService.registerUnverified(newUser);
+    const { accessToken } = this.jwtAuthService.login(user);
+    res.cookie('jwt', accessToken);
+    res.sendStatus(201);
   }
 
   @Post('verify/:token')

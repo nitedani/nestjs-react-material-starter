@@ -19,7 +19,10 @@ const post =
   (body: T) =>
     api().post(url, body);
 
+export const registerLocal = post<{ email: string; password: string }>(
+  '/auth/local/register',
+);
 export const loginLocal =
   post<{ email: string; password: string }>('/auth/local/login');
+export const getProfile = get('/auth/jwt/profile');
 export const getHello = get('/hello');
-export const getProfile = get('/profile');

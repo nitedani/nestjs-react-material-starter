@@ -1,31 +1,25 @@
-import {
-  Routes as Switch,
-  Route,
-  Navigate,
-  RouteProps,
-} from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes as Switch } from 'react-router-dom';
 import { useCookie } from 'react-use';
 import Index from '../pages/Index';
 import Login from '../pages/Login';
 import Profile from '../pages/Profile';
-import { INDEX, LOGIN, PROFILE } from './routes';
+import { Register } from '../pages/Register';
+import { INDEX, LOGIN, PROFILE, REGISTER } from './routes';
 
-export const ProtectedRoute = (props: RouteProps): JSX.Element => {
-  const { children, ...rest } = props;
+export const ProtectedRoute = () => {
   const [accessToken] = useCookie('jwt');
-  return accessToken ? (
-    <Route {...rest}>{children}</Route>
-  ) : (
-    <Navigate to={LOGIN} />
-  );
+  return accessToken ? <Outlet /> : <Navigate to={LOGIN} />;
 };
 
 export const Routes = (): JSX.Element => {
   return (
     <Switch>
-      <ProtectedRoute path={PROFILE} element={<Profile />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path={PROFILE} element={<Profile />} />
+      </Route>
       <Route path={INDEX} element={<Index />} />
       <Route path={LOGIN} element={<Login />} />
+      <Route path={REGISTER} element={<Register />} />
     </Switch>
   );
 };
