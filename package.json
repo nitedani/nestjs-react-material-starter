@@ -8,24 +8,24 @@
   "main": "dist/app/server/main.js",
   "scripts": {
     "prisma-generate": "npx prisma generate",
-    "prisma-migrate": "npx prisma migrate dev",
+    "prisma-migrate:dev": "npx prisma migrate dev",
     "prebuild": "rimraf dist",
-    "postinstall": "npx husky install && npx husky-init",
+    "postinstall": "npx husky install && docker compose up -d && npm run prisma-migrate:dev",
     "build": "npm run pre-commit && cross-env NODE_ENV=production nest build && cross-env NODE_ENV=production webpack -c apps/webapp/webpack.config.js",
     "deploy": "npm run build && gcloud app deploy --no-cache",
-    "format": "prettier --write \"apps/**/*.ts\" \"apps/**/*.tsx\"",
-    "start:dev": "nest start --watch",
+    "format": "prettier --write \"apps/**/*.{ts,tsx,js,jsx,html,css,scss}\"",
+    "start:dev": "concurrently \"docker compose up\" \"nest start --watch\" \"opener http://localhost:4000\"",
     "start:prod": "cross-env NODE_ENV=production node dist/main",
     "start:debug": "nest start --debug --watch",
     "lint": "eslint \"{src,apps,libs,test}/**/*.{ts,tsx}\" --fix",
-    "test": "npm run format && npm run lint",
+    "test": "npm run pre-commit",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "start": "node dist/main",
-    "pre-commit": "npm run format && npm run lint",
-    "prepare": "husky install"
+    "pre-commit": "npm run format && npm run lint && jest",
+    "prepare": "npx husky install"
   },
   "husky": {
     "hooks": {
@@ -72,6 +72,8 @@
     "@nestjs/cli": "^8.2.0",
     "@nestjs/schematics": "^8.0.5",
     "@nestjs/testing": "^8.2.6",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.2",
     "@types/cookie-parser": "^1.4.2",
     "@types/express": "^4.17.13",
     "@types/jest": "^27.4.0",
@@ -91,6 +93,7 @@
     "autoprefixer": "^10.4.2",
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
+    "concurrently": "^7.0.0",
     "copy-webpack-plugin": "^10.2.0",
     "cross-env": "^7.0.3",
     "css-loader": "^6.5.1",
@@ -104,8 +107,11 @@
     "formik-mui-lab": "^1.0.0-alpha.3",
     "html-loader": "^3.1.0",
     "html-webpack-plugin": "^5.5.0",
+    "husky": "^7.0.0",
     "jest": "^27.4.7",
+    "jest-transform-stub": "^2.0.0",
     "mini-css-extract-plugin": "^2.5.3",
+    "opener": "^1.5.2",
     "postcss": "^8.4.5",
     "postcss-loader": "^6.2.1",
     "prettier": "^2.5.1",
@@ -131,8 +137,7 @@
     "webpack-cli": "^4.9.2",
     "webpack-dev-middleware": "^5.3.0",
     "webpack-hot-middleware": "^2.25.1",
-    "webpack-messages": "^2.0.4",
-    "husky": "^7.0.0"
+    "webpack-messages": "^2.0.4"
   },
   "jest": {
     "moduleFileExtensions": [

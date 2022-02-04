@@ -1,9 +1,25 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { act, render } from '@testing-library/react';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+import { unmountComponentAtNode } from 'react-dom';
+import { AppWithProviders } from './App';
+
+let container: any = null;
+beforeEach(() => {
+  // setup a DOM element as a render target
+  container = document.createElement('div');
+  document.body.appendChild(container);
+});
+
+afterEach(() => {
+  // cleanup on exiting
+  unmountComponentAtNode(container);
+  container.remove();
+  container = null;
+});
+
+it('renders', () => {
+  act(() => {
+    render(<AppWithProviders />, container);
+  });
+  expect(container).toBeVisible();
 });

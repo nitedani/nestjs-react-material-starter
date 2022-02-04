@@ -26,6 +26,6 @@ async function bootstrap() {
       devServer(app, port),
     );
   }
-  await nestApp.listen(4000);
+  await nestApp.listen(process.env.PORT || 4000);
 }
 bootstrap();

@@ -1,5 +1,5 @@
 import { Datastore } from '@google-cloud/datastore';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { cwd } from 'process';
@@ -7,7 +7,7 @@ import { ConfigService } from '../../config/config.service';
 
 @Injectable()
 export class DataStoreService extends Datastore {
-  constructor(configService: ConfigService) {
+  constructor(configService: ConfigService, logger: Logger) {
     if (process.env.NODE_ENV !== 'production') {
       let json;
       const keyFilePath = join(
@@ -19,18 +19,18 @@ export class DataStoreService extends Datastore {
 
       try {
         if (!existsSync(keyFilePath)) {
-          console.log('GCP_SA_KEYFILE not found');
+          logger.error('GCP_SA_KEYFILE not found');
           process.exit(0);
         }
       } catch (err) {
-        console.log('GCP_SA_KEYFILE not found');
+        logger.error('GCP_SA_KEYFILE not found');
         process.exit(0);
       }
 
       try {
         json = JSON.parse(readFileSync(keyFilePath).toString());
       } catch (error) {
-        console.log(error);
+        logger.error(error);
         process.exit(0);
       }
       super({
