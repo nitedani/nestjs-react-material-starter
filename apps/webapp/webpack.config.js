@@ -7,6 +7,12 @@ const { join } = require('path');
 const { cwd } = require('process');
 
 module.exports = {
+  resolve: {
+    fallback: {
+      util: false,
+      http: false,
+    },
+  },
   mode: 'production',
   entry: [join(cwd(), 'apps', 'webapp', 'src', 'index.tsx')],
   output: {
@@ -41,6 +47,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             presets: [
+              '@babel/preset-env',
               [
                 '@babel/preset-react',
                 {
@@ -48,6 +55,13 @@ module.exports = {
                 },
               ],
               '@babel/preset-typescript',
+            ],
+            plugins: [
+              ['@babel/plugin-proposal-decorators', { legacy: true }],
+              'babel-plugin-parameter-decorator',
+              '@babel/plugin-proposal-class-properties',
+              '@babel/plugin-proposal-object-rest-spread',
+              '@babel/plugin-transform-runtime',
             ],
           },
         },
