@@ -6,6 +6,20 @@ const WebpackMessages = require('webpack-messages');
 const { join } = require('path');
 const { cwd } = require('process');
 
+const fileExtensions = [
+  'jpg',
+  'jpeg',
+  'png',
+  'gif',
+  'eot',
+  'otf',
+  'svg',
+  'ttf',
+  'woff',
+  'woff2',
+  'wav',
+];
+
 module.exports = {
   resolve: {
     fallback: {
@@ -42,6 +56,36 @@ module.exports = {
   module: {
     rules: [
       {
+        test: new RegExp('.(' + fileExtensions.join('|') + ')$'),
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+        },
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader',
+        exclude: /node_modules/,
+      },
+      {
+        exclude: /node_modules/,
+        test: /\.(css|scss)$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+          },
+          'postcss-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
+      },
+      {
         exclude: /node_modules/,
         test: /.[tj]sx?$/,
         use: {
@@ -64,26 +108,6 @@ module.exports = {
             ],
           },
         },
-      },
-      {
-        exclude: /node_modules/,
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          { loader: 'css-loader', options: { url: false } },
-          'postcss-loader',
-        ],
-      },
-      {
-        test: /\.svg$/,
-        use: [
-          {
-            loader: 'svg-url-loader',
-            options: {
-              limit: 10000,
-            },
-          },
-        ],
       },
     ],
   },
