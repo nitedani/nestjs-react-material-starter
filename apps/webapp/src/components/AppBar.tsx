@@ -4,11 +4,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-import { Button, Switch } from '@mui/material';
+import { Box, Button, Switch } from '@mui/material';
 import { useStoreActions } from '../store/store';
 import { drawerWidth } from '../themes';
 import { useNavigate } from 'react-router-dom';
-import { LOGIN } from '../router/routes';
+import { LOGIN, REGISTER } from '../router/routes';
 import { useTheme } from '../hooks/useTheme';
 
 const AppBar: React.FC = () => {
@@ -52,18 +52,24 @@ const AppBar: React.FC = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            Responsive drawer
+          <Typography variant="h6" noWrap component="div">
+            App
           </Typography>
-          <Switch onChange={handleThemeToggle} checked={themeEnum === 'dark'} />
 
-          <Button color="primary" onClick={() => navigate(LOGIN)}>
-            Sign up
-          </Button>
+          <Box marginLeft="auto">
+            <Switch
+              onChange={handleThemeToggle}
+              checked={themeEnum === 'dark'}
+            />
 
-          <Button color="primary" onClick={() => navigate(LOGIN)}>
-            Sign in
-          </Button>
+            <Button color="primary" onClick={() => navigate(REGISTER)}>
+              Sign up
+            </Button>
+
+            <Button color="primary" onClick={() => navigate(LOGIN)}>
+              Sign in
+            </Button>
+          </Box>
         </Toolbar>
       </MaterialAppBar>
     </div>

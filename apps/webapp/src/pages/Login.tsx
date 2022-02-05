@@ -30,7 +30,7 @@ const Login = () => {
           <Form>
             <div className="flex flex-col items-center justify-center gap-2">
               <Field component={TextField} label="Email" name="email" />
-              <Field component={TextField} label="Passwords" name="password" />
+              <Field component={TextField} label="Password" name="password" />
               <Button
                 color="primary"
                 disabled={isSubmitting}

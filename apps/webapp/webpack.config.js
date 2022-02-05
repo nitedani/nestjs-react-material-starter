@@ -12,6 +12,7 @@ module.exports = {
       util: false,
       http: false,
     },
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   mode: 'production',
   entry: [join(cwd(), 'apps', 'webapp', 'src', 'index.tsx')],
@@ -59,8 +60,6 @@ module.exports = {
             plugins: [
               ['@babel/plugin-proposal-decorators', { legacy: true }],
               'babel-plugin-parameter-decorator',
-              '@babel/plugin-proposal-class-properties',
-              '@babel/plugin-proposal-object-rest-spread',
               '@babel/plugin-transform-runtime',
             ],
           },
@@ -110,7 +109,4 @@ module.exports = {
       template: join(cwd(), 'apps', 'webapp', 'public', 'index.html'),
     }),
   ],
-  resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
-  },
 };

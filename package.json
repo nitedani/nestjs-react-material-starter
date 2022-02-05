@@ -10,7 +10,7 @@
     "prisma-generate": "npx prisma generate",
     "prisma-migrate:dev": "npx prisma migrate dev",
     "prebuild": "rimraf dist",
-    "postinstall": "npx husky install && docker compose up -d && npm run prisma-migrate:dev",
+    "postinstall": "npm run prisma-generate",
     "build": "npm run pre-commit && cross-env NODE_ENV=production nest build && cross-env NODE_ENV=production webpack -c apps/webapp/webpack.config.js",
     "deploy": "npm run build && gcloud app deploy --no-cache",
     "format": "prettier --write \"apps/**/*.{ts,tsx,js,jsx,html,css,scss}\"",
@@ -25,7 +25,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "start": "node dist/main",
     "pre-commit": "npm run format && npm run lint && jest",
-    "prepare": "npx husky install"
+    "prepare": "npx husky install && docker compose up -d && npm run prisma-migrate:dev && docker compose down"
   },
   "husky": {
     "hooks": {
@@ -62,9 +62,7 @@
     "rxjs": "^7.5.2"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/plugin-proposal-decorators": "^7.17.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.16.7",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
@@ -126,7 +124,7 @@
     "react-query": "^3.34.12",
     "react-router-dom": "^6.2.1",
     "react-use": "^17.3.2",
-    "socket.io-react-hook": "^1.0.14",
+    "socket.io-react-hook": "^1.0.15",
     "supertest": "^6.2.2",
     "svg-url-loader": "^7.1.1",
     "tailwindcss": "^3.0.16",

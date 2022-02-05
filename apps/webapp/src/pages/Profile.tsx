@@ -3,7 +3,7 @@ import { getProfile } from '../api/api';
 
 const Profile: React.FC = () => {
   const { data: user } = useQuery('profile', getProfile);
-  return <h1>Profile {JSON.stringify(user)}</h1>;
+  return <div>Profile {JSON.stringify(user)}</div>;
 };
 
 export default Profile;
